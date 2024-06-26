@@ -92,7 +92,7 @@ class IdleGpuWatcher:
             
         if check_func(idle for idle in idle_gpus.values()):
             logging.error(
-                f"usage for all GPUs: {[uuid for uuid in idle_gpus.keys()]} was "
+                f"usage for {self._all_or_any} GPUs: {[uuid for uuid in idle_gpus.keys()]} was "
                 f"below threshhold {self._threshhold_percentage}% "
                 f"for last {self._sample_freq * self._num_samples} seconds."
             )
