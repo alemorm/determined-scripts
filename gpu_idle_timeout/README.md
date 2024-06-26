@@ -37,6 +37,18 @@ optional arguments:
 5. Once the above condition is true, we check if the GPU usage was below THRESHHOLD_PERCENTAGE on *all* samples. If so, we exit.
 
 
+# Cluster-wide GPU utilization timeout
+
+This script can be automatically launched by any determined task (notebook/shell) to monitor the GPU utilization and kill any tasks that are not fully utilizing the specified `THRESHOLD_PERCENTATE` argument for the total number of samples.
+
+Make sure to save this script in a path that's accessible by the master and agent instances. Here's a blurb from a sample `master.yaml` with this script added:
+
+```yaml
+task_container_defaults:
+  startup_hook: python /path/to/sharedfs/gpu_idle_timeout.py -t 50 -s 30 -n 6 -d 2 -x sleep 1h &
+```
+
+
 # Example usage:
 
 In this example I have specified the following I am executing `grep foo`, which will just hang indefinitely, to show how this operates.
