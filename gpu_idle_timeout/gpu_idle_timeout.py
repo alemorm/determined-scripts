@@ -1,3 +1,4 @@
+import determined
 import argparse
 import collections
 import logging
@@ -119,6 +120,7 @@ class IdleGpuWatcher:
             return proc_layers
 
     def watch_process(self, exec_command_and_args: list[str]) -> int:
+        info = determined.get_cluster_info()
         p = subprocess.Popen(exec_command_and_args)
         logging.info(
             f"Starting GPU idle watcher: threshhold_percentage={self._threshhold_percentage}%, "
@@ -163,6 +165,9 @@ class IdleGpuWatcher:
                         logging.info(f"Sending signal {self._signal_code} to process {p.pid}")
                         p.send_signal(self._signal_code)
                         time.sleep(3)  # Wait for signal handlers
+                        task_type = info.task_type.lower()
+                        task_id = info.task_id
+                        subprocess.Popen(f'det {task_type} kill {task_id}', shell=True)
                         sys.exit(1)
 
                     continue
