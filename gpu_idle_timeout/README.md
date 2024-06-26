@@ -34,7 +34,7 @@ optional arguments:
 
 # Cluster-wide GPU utilization timeout
 
-This script can be automatically launched by any determined task (notebook/shell) to monitor the GPU utilization and kill any tasks that are not fully utilizing the specified `THRESHOLD_PERCENTATE` argument for the total number of samples.
+This script can be automatically launched by any determined task (notebook/shell) to monitor the GPU utilization and kill any tasks that are not fully utilizing the specified `THRESHOLD_PERCENTAGE` argument for the total number of samples.
 
 Make sure to save this script in a path that's accessible by the master and agent instances. Here's a blurb from a sample `master.yaml` with this script added
 
